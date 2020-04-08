@@ -1,0 +1,15 @@
+.locale-switcher {
+  @apply flex bg-gray-200 py-4;
+  li {
+    @apply text-center m-2;
+    a {
+      @apply text-gray-700 bg-gray-300 px-4 py-1 m-2 rounded;
+    }
+    a:hover {
+      @apply bg-gray-400;
+    }
+    a.is-active-locale {
+      @apply font-bold text-teal-500;
+    }
+  }
+}

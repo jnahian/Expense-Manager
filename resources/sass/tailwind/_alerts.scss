@@ -1,0 +1,22 @@
+// vform alerts
+// https://github.com/cretueusebiu/vform
+
+.alert {
+  @apply bg-red-200 text-red-700 py-4 px-8 rounded relative mt-4 border-l-4 border-red-500;
+  button {
+    @apply absolute top-0 bottom-0 right-0 px-4 py-3 font-bold text-lg;
+  }
+  div {
+    @apply block font-bold;
+  }
+  &.alert-success {
+    @apply bg-indigo-200 text-indigo-700 border-indigo-500;
+  }
+}
+
+.is-invalid {
+  @apply border-red-500;
+}
+.invalid-feedback {
+  @apply text-red-600 font-semibold;
+}

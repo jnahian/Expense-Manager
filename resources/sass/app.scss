@@ -1,0 +1,17 @@
+@import 'variables';
+@import '~sweetalert2/src/sweetalert2';
+
+@import url('https://fonts.googleapis.com/css?family=Ruda|Roboto+Slab');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'tailwind/alerts';
+@import 'tailwind/buttons';
+@import 'tailwind/nav';
+@import 'elements/transitions';
+
+label {
+  @apply text-gray-700 font-bold mb-2;
+}
