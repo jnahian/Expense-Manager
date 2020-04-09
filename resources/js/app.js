@@ -6,13 +6,23 @@ import App from '~/components/App'
 
 import '~/plugins'
 import '~/components'
+import 'alpinejs'
 
-Vue.config.productionTip = false
+import vClickOutside from 'v-click-outside'
+import SubmitButton from './components/_elements/SubmitButton'
+import FormError from "./components/_elements/FormError";
+
+Vue.directive('click-outside', vClickOutside);
+
+Vue.component('submit-button', SubmitButton);
+Vue.component('form-error', FormError);
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  i18n,
-  store,
-  router,
-  ...App
-})
+    i18n,
+    store,
+    router,
+    ...App
+});
