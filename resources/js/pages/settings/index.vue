@@ -1,41 +1,36 @@
 <template>
-  <div class="container mx-auto">
-    
-    <tw-card :title="$t('settings')" class="settings-card">
-      <tw-nav-tabs :tabs="tabs"></tw-nav-tabs>
-      <transition name="fade" mode="out-in">
-        <router-view />
-      </transition>
-    </tw-card>
-    
-  </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <transition name="fade" mode="out-in">
+            <router-view/>
+        </transition>
+    </div>
 </template>
 
 <script>
-import TwNavTabs from '~/components/TwNavTabs'
+    import TwNavTabs from '~/components/TwNavTabs'
 
-export default {
-  middleware: 'auth',
+    export default {
+        middleware: 'auth',
 
-  components: {
-    TwNavTabs
-  },
-
-  computed: {
-    tabs () {
-      return [
-        {
-          icon: 'user',
-          name: this.$t('profile'),
-          route: 'settings.profile'
+        components: {
+            TwNavTabs
         },
-        {
-          icon: 'lock',
-          name: this.$t('password'),
-          route: 'settings.password'
+
+        computed: {
+            tabs() {
+                return [
+                    {
+                        icon: 'user',
+                        name: this.$t('profile'),
+                        route: 'settings.profile'
+                    },
+                    {
+                        icon: 'lock',
+                        name: this.$t('password'),
+                        route: 'settings.password'
+                    }
+                ]
+            }
         }
-      ]
     }
-  }
-}
 </script>

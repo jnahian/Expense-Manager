@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gray-200 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="min-h-screen  flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h1 class="mt-6 text-center text-3xl leading-9 font-extrabold text-purple-900">{{appName}}</h1>
             <h2 class="mt-6 text-center text-xl leading-9 font-extrabold text-gray-900">

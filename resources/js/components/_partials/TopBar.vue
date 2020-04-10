@@ -1,6 +1,6 @@
 <template>
-    <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow" v-click-outside="hideUserMenu">
-        <button @click.stop="sidebarOpen = true" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
+    <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+        <button @click.stop="toggleMobileMenu" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
                 aria-label="Open sidebar">
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
@@ -48,13 +48,23 @@
                             leave-active-class="transition ease-in duration-75"
                             leave-class="opacity-100 scale-100"
                             leave-to-class="opacity-0 scale-95">
-                        <div v-show="showUserMenu" class="transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                        <div v-show="showUserMenu" class="transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" v-click-outside="hideUserMenu">
                             <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem">Your Profile</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem">Settings</a>
+                                <router-link :to="{ name: 'settings.profile' }" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                                             role="menuitem">
+                                    <fa icon="user" fixed-width class="mr-2"/>
+                                    {{$t('profile')}}
+                                </router-link>
+                                <router-link :to="{name: 'settings.password'}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                                             role="menuitem">
+                                    <fa icon="lock" fixed-width class="mr-2"/>
+                                    {{$t('password')}}
+                                </router-link>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem"
-                                   @click.prevent="logout">{{
-                                    $t('Sign out') }}</a>
+                                   @click.prevent="logout">
+                                    <fa icon="power-off" fixed-width class="mr-2"/>
+                                    {{$t('Sign out') }}
+                                </a>
                             </div>
                         </div>
                     </transition>
@@ -87,10 +97,13 @@
 
                 // Redirect to login.
                 this.$router.push({name: 'login'})
+            },
+
+            toggleMobileMenu() {
+                this.$emit('sideBarOpen')
             }
         },
         created() {
-            this.sidebarOpen = this.open;
         }
     }
 </script>

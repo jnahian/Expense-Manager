@@ -5,21 +5,6 @@ module.exports = {
     theme: {
         customForms: theme => ({
             default: {
-                'input, textarea, multiselect, select': {
-                    borderRadius: theme('borderRadius.md'),
-                    '&:focus': {
-                        backgroundColor: theme('colors.white'),
-                    }
-                },
-                'input, textarea, multiselect': {
-                    backgroundColor: theme('colors.gray.300'),
-                },
-                select: {
-                    backgroundColor: theme('colors.gray.300'),
-                },
-                checkbox: {
-                    borderColor: theme('colors.teal.300'),
-                }
             },
         }),
         screens: {
@@ -191,6 +176,7 @@ module.exports = {
             none: '0',
             sm: '0.125rem',
             default: '0.25rem',
+            md: '0.25rem',
             lg: '0.5rem',
             full: '9999px',
         },
