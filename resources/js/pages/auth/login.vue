@@ -21,7 +21,7 @@
                         <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
                             {{ $t('Email address') }}
                         </label>
-                        <div class="mt-1 rounded shadow-sm">
+                        <div class="mt-1">
                             <input
                                     id="email"
                                     type="email"
@@ -29,7 +29,7 @@
                                     :class="{ 'is-invalid': form.errors.has('email') }"
                                     autocomplete="email"
                                     placeholder="username@example.com"
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded shadow-sm placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             />
                             <form-error :form="form" field="email"/>
                         </div>
@@ -39,7 +39,7 @@
                         <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
                             {{ $t('Password') }}
                         </label>
-                        <div class="mt-1 rounded shadow-sm">
+                        <div class="mt-1">
                             <input
                                     id="password"
                                     type="password"
@@ -47,7 +47,7 @@
                                     :class="{ 'is-invalid': form.errors.has('password') }"
                                     autocomplete="current-password"
                                     :placeholder="$t('Password')"
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded shadow-sm placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             />
                             <form-error :form="form" field="password"/>
                         </div>

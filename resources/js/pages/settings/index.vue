@@ -7,30 +7,11 @@
 </template>
 
 <script>
-    import TwNavTabs from '~/components/TwNavTabs'
-
     export default {
         middleware: 'auth',
 
-        components: {
-            TwNavTabs
-        },
+        components: {},
 
-        computed: {
-            tabs() {
-                return [
-                    {
-                        icon: 'user',
-                        name: this.$t('profile'),
-                        route: 'settings.profile'
-                    },
-                    {
-                        icon: 'lock',
-                        name: this.$t('password'),
-                        route: 'settings.password'
-                    }
-                ]
-            }
-        }
+        computed: {}
     }
 </script>

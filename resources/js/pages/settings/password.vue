@@ -20,19 +20,19 @@
                                     <div class="col-span-1 sm:col-span-1">
                                         <label for="old_password" class="block text-sm font-medium leading-5 text-gray-700">{{ $t('password') }}</label>
                                         <input id="old_password" v-model="form.old_password" type="password" :class="{'is-invalid' : form.errors.has('old_password')}"
-                                               class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                                               class="form-default"/>
                                         <form-error :form="form" field="old_password"/>
                                     </div>
                                     <div class="col-span-1 sm:col-span-1">
                                         <label for="password" class="block text-sm font-medium leading-5 text-gray-700">{{ $t('new_password') }}</label>
                                         <input id="password" v-model="form.password" type="password" :class="{'is-invalid' : form.errors.has('password')}"
-                                               class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                                               class="form-default"/>
                                         <form-error :form="form" field="password"/>
                                     </div>
                                     <div class="col-span-1 sm:col-span-1">
                                         <label for="password_confirmation" class="block text-sm font-medium leading-5 text-gray-700">{{ $t('confirm_password') }}</label>
                                         <input id="password_confirmation" v-model="form.password_confirmation" type="password" :class="{'is-invalid' : form.errors.has('password_confirmation')}"
-                                               class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                                               class="form-default"/>
                                         <form-error :form="form" field="password_confirmation"/>
                                     </div>
                                 </div>

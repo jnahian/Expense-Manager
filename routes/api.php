@@ -22,6 +22,22 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    Route::get('income', 'IncomeController@index');
+    Route::get('income/{income}', 'IncomeController@details');
+    Route::post('income', 'IncomeController@save');
+    Route::put('income/{income}', 'IncomeController@update');
+    Route::delete('income/{income}', 'IncomeController@delete');
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('types', 'AccountController@accountTypes')->name('account.types');
+
+        Route::get('', 'AccountController@index');
+        Route::get('{account}', 'AccountController@details');
+        Route::post('', 'AccountController@save');
+        Route::put('{account}', 'AccountController@update');
+        Route::delete('{account}', 'AccountController@delete');
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

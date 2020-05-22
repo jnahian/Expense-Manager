@@ -6,7 +6,7 @@
                 enter-to-class="opacity-100"
                 leave-class="opacity-100"
                 leave-to-class="opacity-0">
-            <div @click="toggleMobileMenu" v-show="open"
+            <div @click="toggleMobileMenu" v-show="open" v-click-outside="toggleMobileMenu"
                  class="fixed inset-0 z-30 transition-opacity ease-linear duration-300">
                 <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
             </div>

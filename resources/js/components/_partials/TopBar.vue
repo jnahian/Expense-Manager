@@ -34,11 +34,11 @@
                 <div class="ml-3 relative">
                     <div>
                         <button @click="showUserMenu = !showUserMenu" class="max-w-xs flex items-center text-sm rounded-full focus:outline-none" id="user-menu"
-                                aria-label="User menu" aria-haspopup="true" :aria-expanded="showUserMenu">
+                                aria-label="User menu" aria-haspopup="true" :aria-expanded="showUserMenu" v-click-outside="hideUserMenu">
                             <img class="h-8 w-8 rounded-full"
                                  :src="user.photo_url"
                                  alt=""/>
-                            <span class="ml-2 text-purple-900">{{user.name}}</span>
+                            <span class="ml-2 text-purple-900 font-bold">{{user.name}}</span>
                         </button>
                     </div>
                     <transition
@@ -48,7 +48,7 @@
                             leave-active-class="transition ease-in duration-75"
                             leave-class="opacity-100 scale-100"
                             leave-to-class="opacity-0 scale-95">
-                        <div v-show="showUserMenu" class="transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" v-click-outside="hideUserMenu">
+                        <div v-show="showUserMenu" class="transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                             <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                                 <router-link :to="{ name: 'settings.profile' }" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                                              role="menuitem">

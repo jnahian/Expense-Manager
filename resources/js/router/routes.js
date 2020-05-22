@@ -3,9 +3,10 @@ function page(path) {
 }
 
 export default [
-    {path: '/', name: 'welcome', component: page('welcome.vue')},
+    // {path: '/', name: 'welcome', component: page('welcome.vue')},
 
-    {path: '/login', name: 'login', component: page('auth/login.vue')},
+    {path: '/', name: 'login', component: page('auth/login.vue')},
+    // {path: '/login', name: 'login', component: page('auth/login.vue')},
     {path: '/register', name: 'register', component: page('auth/register.vue')},
     {path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue')},
     {path: '/password/reset/:token', name: 'password.reset', component: page('auth/password/reset.vue')},
@@ -13,6 +14,22 @@ export default [
     {path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue')},
 
     {path: '/home', name: 'home', component: page('home.vue')},
+    {
+        path: '/accounts',
+        component: page('blank.vue'),
+        children: [
+            {path: '', name: 'accounts', component: page('accounts/index.vue')},
+        ],
+    },
+    {
+        path: '/income',
+        component: page('blank.vue'),
+        children: [
+            {path: '', name: 'income', component: page('income/index.vue')},
+            {path: 'create', name: 'income.create', component: page('income/create.vue')},
+            {path: ':id/edit', name: 'income.edit', component: page('income/edit.vue')}
+        ],
+    },
     {
         path: '/settings',
         component: page('settings/index.vue'),
