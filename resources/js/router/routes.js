@@ -22,6 +22,13 @@ export default [
         ],
     },
     {
+        path: '/transaction',
+        component: page('blank.vue'),
+        children: [
+            {path: '', name: 'transaction', component: page('transaction/index.vue')},
+        ],
+    },
+    {
         path: '/income',
         component: page('blank.vue'),
         children: [

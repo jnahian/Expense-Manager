@@ -18,9 +18,9 @@ class Account extends Model
         'status',
     ];
 
-    const ACCOUNT_TYPES = [
-        ['id'   => AccountType::DEBIT, 'name' => 'Debit'],
-        ['id'   => AccountType::CREDIT, 'name' => 'Credit']
+    const TYPES = [
+        ['id' => AccountType::DEBIT, 'name' => 'Debit'],
+        ['id' => AccountType::CREDIT, 'name' => 'Credit']
     ];
 
     const STATUS = [
@@ -28,18 +28,28 @@ class Account extends Model
         ['id' => Status::DISABLED, 'name' => "Disabled"],
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function accountTypes()
     {
-        return self::ACCOUNT_TYPES;
+        return self::TYPES;
     }
 
     public function getTypeAttribute($value)
     {
-        return collect(self::ACCOUNT_TYPES)->firstWhere('id', $value);
+        return collect(self::TYPES)->firstWhere('id', $value);
     }
 
     public function getStatusAttribute($value)
     {
         return collect(self::STATUS)->firstWhere('id', $value);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', Status::ACTIVE);
     }
 }

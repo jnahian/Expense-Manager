@@ -146,5 +146,34 @@ button {
   }
 }
 
+h6.dg-title {
+  text-align: center;
+}
+
+.dg-content {
+  padding: 15px;
+  border-top: 1px solid #efefef;
+  text-align: center;
+}
+
+.dg-content-body.dg-content-body--has-title {
+  border-bottom: 1px solid #efefef;
+}
+
+.dg-btn {
+  padding: 5px 15px;
+  border: none;
+}
+
+button.dg-btn.dg-btn--cancel {
+  background: #999;
+  color: #fff;
+}
+
+button.dg-btn.dg-btn--ok.dg-pull-right {
+  background: #e62525;
+  color: #fff;
+}
+
 
 @tailwind utilities;

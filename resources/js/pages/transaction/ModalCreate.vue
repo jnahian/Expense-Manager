@@ -27,37 +27,70 @@
                     role="dialog"
                     v-click-outside="closeModal"
             >
-                <content-loader :show="contentLoading" />
+                <content-loader :show="contentLoading"/>
                 <form @submit.prevent="saveOrUpdate" @keydown="form.onKeydown($event)">
                     <h3 class="text-lg leading-6 font-medium text-center text-gray-900" id="modal-headline">{{title}}</h3>
+
                     <div class="mt-3 sm:mt-5">
-                        <label for="name">{{$t('Account Name')}} <span class="text-red-500">*</span></label>
-                        <div class="mt-1 relative">
-                            <input id="name"
-                                   type="text"
-                                   v-model="form.name"
-                                   class="form-default"
-                                   :class="{'error' : form.errors.has('name')}"
-                                   :placeholder="$t('Account Name')"
-                            />
-                            <form-error-icon :form="form" field="name"/>
+                        <label>{{$t('Account')}} <span class="text-red-500">*</span></label>
+                        <div class="mt-1 relative flex flex-wrap">
+                            <div
+                                    v-if="meta.accounts.length"
+                                    v-for="account in meta.accounts" :key="account.id"
+                                    class="w-1/2 px-1 mb-2"
+                            >
+                                <div class="flex items-center">
+                                    <input
+                                            :id="`transaction-account-${account.id}`"
+                                            v-model="form.account"
+                                            :value="account.id"
+                                            :class="{'error' : form.errors.has('account')}"
+                                            type="radio"
+                                            class="form-radio hidden h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
+                                    <label
+                                            :for="`transaction-account-${account.id}`"
+                                            class="w-full p-2 border border-gray-300 rounded bg-gray-100 cursor-pointer"
+                                            :class="{'bg-green-200 border-green-500' : account.id === form.account}"
+                                    >
+                                        <span class="block text-sm leading-5 font-medium text-gray-700">{{account.name}}</span>
+                                        <span class="block text-green-500 font-medium text-sm">{{$t('Bal')}}: {{account.balance}}</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <form-error :form="form" field="name"/>
+                        <form-error :form="form" field="account"/>
                     </div>
 
                     <div class="mt-3 sm:mt-5">
-                        <label for="name">{{$t('Account Type')}} <span class="text-red-500">*</span></label>
+                        <label for="date">{{$t('Transaction Date')}} <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <datetime
+                                    id="date"
+                                    v-model="form.date"
+                                    placeholder='dd/mm/yyyy'
+                                    format="dd/MM/yyyy"
+                                    input-class="form-default"
+                            ></datetime>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <calender-icon classNames="h-5 w-5" fill="#999"/>
+                            </div>
+                        </div>
+                        <form-error :form="form" field="date"/>
+                    </div>
+
+                    <div class="mt-3 sm:mt-5">
+                        <label>{{$t('Transaction Type')}} <span class="text-red-500">*</span></label>
                         <div class="mt-1 relative flex">
-                            <div class="mt-2 mr-4" v-if="accountTypes.length" v-for="type in accountTypes" :key="type.id">
+                            <div class="mt-2 mr-4" v-if="meta.types.length" v-for="type in meta.types" :key="type.id">
                                 <div class="flex items-center">
                                     <input
-                                            :id="`account-type-${type.id}`"
+                                            :id="`transaction-type-${type.id}`"
                                             v-model="form.type"
                                             :value="type.id"
                                             :class="{'error' : form.errors.has('type')}"
                                             type="radio"
                                             class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
-                                    <label :for="`account-type-${type.id}`" class="ml-3">
+                                    <label :for="`transaction-type-${type.id}`" class="ml-3">
                                         <span class="block text-sm leading-5 font-medium text-gray-700 cursor-pointer">{{type.name}}</span>
                                     </label>
                                 </div>
@@ -67,53 +100,49 @@
                     </div>
 
                     <div class="mt-3 sm:mt-5">
-                        <label for="balance">{{$t('Initial Balance')}} <span class="text-red-500">*</span></label>
+                        <label for="amount">{{$t('Amount')}} <span class="text-red-500">*</span></label>
                         <div class="mt-1 relative">
-                            <input id="balance"
+                            <input id="amount"
                                    type="number"
-                                   :class="{'error' : form.errors.has('balance')}"
-                                   v-model="form.balance"
+                                   :class="{'error' : form.errors.has('amount')}"
+                                   v-model="form.amount"
                                    class="form-default"
-                                   :placeholder="$t('Initial Balance')"
-                                   :disabled="editMode"
+                                   :placeholder="$t('Amount')"
                             />
-                            <form-error-icon :form="form" field="balance"/>
+                            <form-error-icon :form="form" field="amount"/>
                         </div>
-                        <info-message v-if="editMode" msg="Not editable"/>
-                        <form-error :form="form" field="balance"/>
+                        <form-error :form="form" field="amount"/>
+                    </div>
+
+                    <div class="mt-3 sm:mt-5">
+                        <label for="desc">{{$t('Details')}}</label>
+
+                        <div class="mt-1 relative">
+                            <textarea id="desc" v-model="form.desc" class="form-default" :placeholder="$t('Details')"/>
+                            <form-error-icon :form="form" field="desc"/>
+                        </div>
+                        <form-error :form="form" field="desc"/>
                     </div>
 
                     <div class="mt-3 sm:mt-5">
                         <label>{{$t('Status')}} <span class="text-red-500">*</span></label>
                         <div class="mt-1 relative flex">
-                            <div class="mt-2 mr-4">
+                            <div class="mt-2 mr-4" v-if="meta.status.length" v-for="status in meta.status" :key="status.id">
                                 <div class="flex items-center">
                                     <input
-                                            id="active"
+                                            :id="`status-${status.id}`"
                                             v-model="form.status"
-                                            value="1"
+                                            :value="status.id"
+                                            :class="{'error' : form.errors.has('status')}"
                                             type="radio"
                                             class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
-                                    <label for="active" class="ml-3">
-                                        <span class="block text-sm leading-5 font-medium text-gray-700 cursor-pointer">{{$t('Active')}}</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mt-2 mr-4">
-                                <div class="flex items-center">
-                                    <input
-                                            id="disabled"
-                                            v-model="form.status"
-                                            value="9"
-                                            type="radio"
-                                            class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
-                                    <label for="disabled" class="ml-3">
-                                        <span class="block text-sm leading-5 font-medium text-gray-700 cursor-pointer">{{$t('Disabled')}}</span>
+                                    <label :for="`status-${status.id}`" class="ml-3">
+                                        <span class="block text-sm leading-5 font-medium text-gray-700 cursor-pointer">{{status.name}}</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <form-error :form="form" field="type"/>
+                        <form-error :form="form" field="status"/>
                     </div>
 
                     <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
@@ -141,29 +170,34 @@
     import FormErrorIcon from "../../components/_elements/FormErrorIcon";
     import InfoMessage from "../../components/_elements/InfoMessage";
     import ContentLoader from "../../components/_partials/ContentLoader";
+    import CalenderIcon from "../../components/_elements/CalenderIcon";
+    import {Datetime} from 'vue-datetime';
+    import 'vue-datetime/dist/vue-datetime.css';
 
     export default {
         name: "ModalCreate",
-        props: ['account', 'show', 'accountTypes'],
-        components: {ContentLoader, InfoMessage, FormErrorIcon},
+        props: ['transaction', 'show', 'meta'],
+        components: {Datetime, CalenderIcon, ContentLoader, InfoMessage, FormErrorIcon},
         metaInfo() {
             return {title: this.$t(this.title)}
         },
         data: () => ({
             contentLoading: false,
             form: new Form({
-                name: '',
-                type: 'DR',
-                balance: null,
-                status: 1
+                account: '',
+                date: '',
+                type: 'E',
+                amount: null,
+                desc: '',
+                status: 1,
             }),
         }),
         computed: {
             editMode() {
-                return !!this.account;
+                return !!this.transaction;
             },
             title() {
-                return (!this.editMode ? this.$t('Add New') : this.$t('Update')) + ' ' + this.$t('Account');
+                return (!this.editMode ? this.$t('Add New') : this.$t('Update')) + ' ' + this.$t('Transaction');
             }
         },
         methods: {
@@ -174,10 +208,10 @@
                 this.contentLoading = true;
                 try {
                     if (!this.editMode) {
-                        let {data: {message}} = await this.form.post('/api/account');
+                        let {data: {message}} = await this.form.post('/api/transaction');
                         this.$toast.success(this.$t(message));
                     } else {
-                        let {data: {message}} = await this.form.put(`/api/account/${this.account.id}`);
+                        let {data: {message}} = await this.form.put(`/api/transaction/${this.transaction.id}`);
                         this.$toast.success(this.$t(message));
                     }
 
@@ -191,11 +225,13 @@
         },
 
         created() {
-            if (this.account) {
-                this.form.name = this.account.name;
-                this.form.type = this.account.type.id;
-                this.form.balance = this.account.balance;
-                this.form.status = this.account.status.id;
+            if (this.transaction) {
+                this.form.account = this.transaction.account.id;
+                this.form.date = this.transaction.date;
+                this.form.type = this.transaction.type.id;
+                this.form.amount = this.transaction.amount;
+                this.form.desc = this.transaction.desc;
+                this.form.status = this.transaction.status.id;
             }
         }
     }

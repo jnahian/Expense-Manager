@@ -21,9 +21,10 @@ import VuejsDialog from 'vuejs-dialog';
 Vue.use(VueToast, {position: 'top', duration: 4000});
 Vue.use(VueConfirmDialog, {auth: false, button: {no: 'No', yes: 'Yes'}});
 Vue.use(VuejsDialog, {
-    okText: 'Yes',
+    okText: 'Yes! Delete',
     cancelText: 'No',
-    animation: 'bounce'
+    animation: 'bounce',
+    backdropClose: true,
 });
 
 Vue.directive('click-outside', vClickOutside.directive);

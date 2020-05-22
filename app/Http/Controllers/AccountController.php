@@ -11,7 +11,7 @@ class AccountController extends Controller
 {
     public function accountTypes()
     {
-        return $this->successResponse(null, Account::ACCOUNT_TYPES);
+        return $this->successResponse(null, Account::TYPES);
     }
 
     public function index(Request $request)
@@ -53,7 +53,7 @@ class AccountController extends Controller
         try {
             $data = $request->only(['name', 'type', 'balance']);
             $this->user->accounts()->create($data);
-            return $this->successResponse('Account created successfully!');
+            return $this->successResponse('Account saved successfully!');
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }

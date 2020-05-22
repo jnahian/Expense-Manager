@@ -38,6 +38,16 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::put('{account}', 'AccountController@update');
         Route::delete('{account}', 'AccountController@delete');
     });
+
+    Route::group(['prefix' => 'transaction'], function () {
+        Route::get('meta', 'TransactionController@transactionMeta')->name('transaction.meta');
+
+        Route::get('', 'TransactionController@index');
+        Route::get('{transaction}', 'TransactionController@details');
+        Route::post('', 'TransactionController@save');
+        Route::put('{transaction}', 'TransactionController@update');
+        Route::delete('{transaction}', 'TransactionController@delete');
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
